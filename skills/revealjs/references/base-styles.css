@@ -12,6 +12,13 @@
    CSS VARIABLES - Customize these for each presentation
    =========================================== */
 :root {
+  /* ===========================================
+     BACKGROUND COLOR - Set this first!
+     For dark presentations, change to a dark color (e.g., #1a1a2e, #0d1117, #2d2d2d)
+     Then update --text-color and --muted-color to light colors below.
+     =========================================== */
+  --background-color: #ffffff;
+
   /* Typography - ALWAYS use pt for font sizes */
   --heading-font: "Source Sans Pro", Helvetica, sans-serif;
   --body-font: "Source Sans Pro", Helvetica, sans-serif;
@@ -21,6 +28,13 @@
   --h2-size: 36pt;
   --h3-size: 24pt;
   --footnote-size: 11pt;
+
+  /* Colors - CUSTOMIZE THESE */
+  --primary-color: #2196F3;    /* Main accent color */
+  --secondary-color: #ff9800;  /* Secondary accent */
+  --text-color: #222;          /* Main text - use light color (e.g., #f0f0f0) for dark backgrounds */
+  --muted-color: #666;         /* Secondary text - use lighter color for dark backgrounds */
+  --line-color: #333;          /* Decorative lines */
 
   /* Layout */
   --slide-padding: 60px;
@@ -32,14 +46,6 @@
   --box-bg: #f5f5f5;
   --box-border: #ddd;
   --accent-border-width: 6px;
-
-  /* Colors - CUSTOMIZE THESE */
-  --primary-color: #2196F3;    /* Main accent color */
-  --secondary-color: #ff9800;  /* Secondary accent */
-  --text-color: #222;          /* Main text */
-  --muted-color: #666;         /* Secondary/muted text */
-  --background-color: #fff;    /* Slide background */
-  --line-color: #333;          /* Decorative lines */
 
   /* Callout colors */
   --blue: #2196F3;
@@ -66,6 +72,12 @@
 .reveal {
   font-family: var(--body-font);
   font-size: var(--base-font-size);
+}
+
+/* Apply background color */
+.reveal,
+.reveal .slide-background {
+  background: var(--background-color);
 }
 
 .reveal h1,

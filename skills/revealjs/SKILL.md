@@ -61,44 +61,6 @@ A reveal.js presentation consists of:
 17. **Coastal Rose**: Old rose (#AD7670), beaver (#B49886), eggshell (#F3ECDC), ash gray (#BFD5BE)
 18. **Orange & Turquoise**: Light orange (#FC993E), grayish turquoise (#667C6F), white (#FCFCFC)
 
-### Visual Design Options
-
-**Geometric Patterns**:
-- Diagonal section dividers instead of horizontal
-- Asymmetric column widths (30/70, 40/60, 25/75)
-- Circular/hexagonal frames for images
-- Triangular accent shapes in corners
-- Overlapping shapes for depth
-
-**Border & Frame Treatments**:
-- Thick single-color borders (10-20pt) on one side only
-- Double-line borders with contrasting colors
-- Corner brackets instead of full frames
-- L-shaped borders (top+left or bottom+right)
-- Underline accents beneath headers (3-5pt thick)
-
-**Typography Treatments**:
-- Extreme size contrast (72pt headlines vs 11pt body)
-- All-caps headers with wide letter spacing
-- Numbered sections in oversized display type
-- Monospace (Courier New) for data/stats/technical content
-- Outlined text for emphasis
-
-**Layout Innovations**:
-- Full-bleed images with text overlays
-- Sidebar column (20-30% width) for navigation/context
-- Modular grid systems (3×3, 4×4 blocks)
-- Z-pattern or F-pattern content flow
-- Floating text boxes over colored shapes
-- Magazine-style multi-column layouts
-
-**Background Treatments**:
-- Solid color blocks occupying 40-60% of slide
-- Gradient fills (vertical or diagonal only)
-- Split backgrounds (two colors, diagonal or vertical)
-- Edge-to-edge color bands
-- Negative space as a design element
-
 ### Slide Content Principles
 
 **Diverse presentation is key.** Even when slides have similar content types, vary the visual presentation:
@@ -127,11 +89,15 @@ Based on the user's content, determine:
 
 ### Step 2: Generate the Scaffold
 
-Use the `create-presentation.js` script to generate the HTML scaffold. Run from the repo root:
+Use the `create-presentation.js` script (located in the `scripts/` directory next to this SKILL.md file) to generate the HTML scaffold.
 
 ```bash
-node .claude/skills/revealjs-v2/scripts/create-presentation.js --structure 1,1,d,3,1,d,1 --title "My Presentation" --output presentations/my-deck/presentation.html
+node <path-to-skill>/scripts/create-presentation.js --structure 1,1,d,3,1,d,1 --title "My Presentation" --output presentation.html
 ```
+
+**Finding the script path:** The script is at `scripts/create-presentation.js` relative to where this SKILL.md file is located. Common locations:
+- Project skill: `.claude/skills/revealjs/scripts/create-presentation.js`
+- User skill: `~/.claude/skills/revealjs/scripts/create-presentation.js`
 
 **Options:**
 - `--slides N` - Create N horizontal slides (simple mode)
@@ -139,18 +105,17 @@ node .claude/skills/revealjs-v2/scripts/create-presentation.js --structure 1,1,d
   - `1` = single horizontal slide
   - `N` (where N > 1) = vertical stack of N slides
   - `d` = section divider slide (centered, no content wrapper)
-- `--theme <name>` - Base reveal.js theme to load from CDN (white, black, dracula, moon, night, beige, serif, solarized, league, sky, simple). Your custom CSS overrides on top of this. For dark backgrounds use `black`, `dracula`, `moon`, or `night`; for light backgrounds use `white`, `beige`, or `simple`.
 - `--output <file>` - Output filename (default: presentation.html)
 - `--title <text>` - Presentation title
 - `--styles <file>` - Custom CSS filename (default: styles.css)
 
 **Examples:**
 ```bash
-# 10 horizontal slides with black theme
-node .claude/skills/revealjs-v2/scripts/create-presentation.js --slides 10 --theme black --output presentations/my-deck/presentation.html
+# 10 horizontal slides
+node <path-to-skill>/scripts/create-presentation.js --slides 10 --output presentation.html
 
 # Mixed structure: intro, 2 content slides, divider, 3-slide vertical stack, divider, closing
-node .claude/skills/revealjs-v2/scripts/create-presentation.js --structure 1,1,1,d,3,d,1 --title "Q4 Review" --output presentations/quarterly/presentation.html
+node <path-to-skill>/scripts/create-presentation.js --structure 1,1,1,d,3,d,1 --title "Q4 Review" --output presentation.html
 ```
 
 ### Step 3: Customize the CSS
@@ -173,6 +138,11 @@ The base file includes:
 1. **CSS Variables** for easy customization:
 ```css
 :root {
+  /* ===========================================
+     BACKGROUND COLOR - Set this first!
+     =========================================== */
+  --background-color: #ffffff;  /* Change for dark themes (e.g., #1a1a2e) */
+
   /* Typography - ALWAYS use pt for font sizes */
   --heading-font: "Source Sans Pro", Helvetica, sans-serif;
   --body-font: "Source Sans Pro", Helvetica, sans-serif;
@@ -185,9 +155,8 @@ The base file includes:
   /* Colors - customize these for each presentation */
   --primary-color: #2196F3;
   --secondary-color: #ff9800;
-  --text-color: #222;       /* Use light color (e.g., #FAF7F2) for dark themes */
-  --muted-color: #666;      /* Adjust for dark themes too */
-  --background-color: #ffffff;
+  --text-color: #222;       /* Use light color (e.g., #FAF7F2) for dark backgrounds */
+  --muted-color: #666;      /* Adjust for dark backgrounds too */
   --box-bg: #f5f5f5;
   --box-border: #ddd;
 }

@@ -11,14 +11,10 @@ const path = require('path');
 // Path to the base styles file (relative to this script)
 const BASE_STYLES_PATH = path.join(__dirname, '..', 'references', 'base-styles.css');
 
-// Available reveal.js themes
-const THEMES = ['white', 'black', 'dracula', 'moon', 'night', 'beige', 'serif', 'solarized', 'league', 'sky', 'simple'];
-
 function parseArgs(args) {
   const options = {
     slides: null,
     structure: null,
-    theme: 'white',
     output: 'presentation.html',
     title: 'Presentation',
     stylesFile: 'styles.css',
@@ -30,8 +26,6 @@ function parseArgs(args) {
       options.slides = parseInt(args[++i], 10);
     } else if (arg === '--structure') {
       options.structure = args[++i].split(',').map(n => n === 'd' ? 'd' : parseInt(n, 10));
-    } else if (arg === '--theme' || arg === '-t') {
-      options.theme = args[++i];
     } else if (arg === '--output' || arg === '-o') {
       options.output = args[++i];
     } else if (arg === '--title') {
@@ -60,17 +54,15 @@ Options:
                         - Number >1 = vertical stack of that many slides
                         - 'd' = section divider slide
                         Cannot be used with --slides
-  --theme, -t <name>    Base reveal.js theme (default: white)
-                        Available: ${THEMES.join(', ')}
   --output, -o <file>   Output HTML filename (default: presentation.html)
   --title <text>        Presentation title (default: Presentation)
   --styles <file>       Custom CSS filename (default: styles.css)
   --help, -h            Show this help message
 
 Examples:
-  node create-presentation.js --slides 10 --theme black
+  node create-presentation.js --slides 10 -o my-deck.html
   node create-presentation.js --structure 1,1,d,3,1,d,1 -o my-deck.html
-  node create-presentation.js --structure 1,1,1,d,3,d,1,1 --theme dracula
+  node create-presentation.js --structure 1,1,1,d,3,d,1,1 --title "Q4 Review"
 `);
 }
 
@@ -142,9 +134,6 @@ function generateHTML(options) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
 
-  <!-- Base theme: ${THEMES.join(', ')} -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/${options.theme}.css">
-
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -190,12 +179,6 @@ ${slidesContent}
 function main() {
   const args = process.argv.slice(2);
   const options = parseArgs(args);
-
-  // Validate theme
-  if (!THEMES.includes(options.theme)) {
-    console.error(`Error: Invalid theme '${options.theme}'. Available themes: ${THEMES.join(', ')}`);
-    process.exit(1);
-  }
 
   // Validate mutually exclusive options
   if (options.slides !== null && options.structure !== null) {
@@ -253,8 +236,8 @@ function main() {
     console.log(`${stylesOutputPath} already exists, skipping`);
   }
 
-  console.log(`\nPresentation created with ${totalSlides} slides (structure: ${options.structure.join(',')}) using '${options.theme}' theme.`);
-  console.log(`Open ${options.output} in a browser to view.`);
+  console.log(`\nPresentation created with ${totalSlides} slides (structure: ${options.structure.join(',')}).`);
+  console.log(`Customize colors in ${stylesOutputPath}, then open ${options.output} in a browser to view.`);
 }
 
 main();
