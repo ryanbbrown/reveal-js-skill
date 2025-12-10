@@ -1,22 +1,14 @@
 {
-  "name": "reveal-js-skill",
+  "name": "revealjs-skill",
   "version": "1.0.0",
   "description": "Claude Code skill for making reveal.js presentations",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ryanbbrown/reveal-js-skill.git"
   },
-  "keywords": [],
+  "keywords": ["reveal", "reveal.js", "presentation", "html-presentation"],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ryanbbrown/reveal-js-skill/issues"
-  },
-  "homepage": "https://github.com/ryanbbrown/reveal-js-skill#readme",
+  "license": "MIT",
   "dependencies": {
     "cheerio": "^1.1.2",
     "decktape": "github:ryanbbrown/decktape"

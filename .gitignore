@@ -1,15 +1,15 @@
 # macOS
 .DS_Store
 
-# Node
+# Dependencies
 node_modules/
+package-lock.json
 
 # Presentation outputs and experiments
 presentations
-tmp
 
-# Misc content files
-game-slide-content.md
+# .claude folder for local testing
+.claude
 
 # anthropic pptx skill for reference
 pptx/
